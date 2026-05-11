@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarah Amanda Levis, PhD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --bark: #4a3728;
+    --moss: #5c6b4a;
+    --sand: #c4a882;
+    --fog: rgba(245, 240, 232, 0.82);
+    --fog-light: rgba(245, 240, 232, 0.65);
+    --shadow: rgba(44, 30, 18, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    color: var(--bark);
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND SYSTEM ── */
+  .bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 0.7s ease;
+  }
+  #bg-home    { background-image: url('home-bg.jpg'); }
+  #bg-inner   { background-image: url('inner-bg.jpg'); opacity: 0; }
+
+  body.page-home   #bg-home  { opacity: 1; }
+  body.page-home   #bg-inner { opacity: 0; }
+  body.page-inner  #bg-home  { opacity: 0; }
+  body.page-inner  #bg-inner { opacity: 1; }
+
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to bottom,
+      rgba(30,20,10,0.18) 0%,
+      rgba(30,20,10,0.08) 40%,
+      rgba(30,20,10,0.22) 100%
+    );
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 52px;
+    background: linear-gradient(to bottom, rgba(30,20,10,0.35) 0%, transparent 100%);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    color: var(--cream);
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0.9;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links li a {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+    cursor: pointer;
+  }
+  .nav-links li a:hover,
+  .nav-links li a.active { opacity: 1; border-bottom: 1px solid var(--sand); }
+
+  /* ── PAGES ── */
+  .page {
+    display: none;
+    min-height: 100vh;
+    padding-top: 100px;
+  }
+  .page.active { display: block; }
+
+  /* ── HOME PAGE ── */
+  #home {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 0 10vw;
+  }
+  #home.active { display: flex; }
+
+  .home-card {
+    background: var(--fog);
+    backdrop-filter: blur(6px);
+    padding: 52px 60px;
+    max-width: 580px;
+    border-left: 2px solid var(--sand);
+  }
+
+  .home-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    line-height: 1.1;
+    color: var(--bark);
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+
+  .home-name em {
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .home-credential {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin-bottom: 28px;
+  }
+
+  .home-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--sand);
+    margin-bottom: 24px;
+  }
+
+  .home-bio {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--bark);
+    font-style: italic;
+  }
+
+  /* ── INNER PAGES ── */
+  .page-inner {
+    padding: 120px 10vw 80px;
+  }
+
+  .page-header {
+    margin-bottom: 52px;
+  }
+
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    text-shadow: 0 2px 12px var(--shadow);
+    margin-bottom: 10px;
+  }
+
+  .page-title-line {
+    width: 52px;
+    height: 1px;
+    background: var(--sand);
+  }
+
+  /* ── CONTENT CARDS ── */
+  .content-section {
+    background: var(--fog);
+    backdrop-filter: blur(8px);
+    padding: 40px 48px;
+    margin-bottom: 28px;
+    border-left: 2px solid var(--sand);
+  }
+
+  .section-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin-bottom: 28px;
+  }
+
+  /* ── PROJECT / PUB ITEMS ── */
+  .project-item {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(90,70,50,0.12);
+  }
+  .project-item:last-child { border-bottom: none; }
+
+  .project-thumb {
+    width: 140px;
+    min-width: 140px;
+    height: 100px;
+    background: rgba(180,160,130,0.25);
+    border: 1px dashed var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bark);
+    opacity: 0.6;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+  }
+
+  .project-info { flex: 1; }
+
+  .project-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    color: var(--bark);
+  }
+
+  .project-info p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--bark);
+    opacity: 0.75;
+    margin-bottom: 12px;
+    font-weight: 300;
+  }
+
+  .organic-link {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--moss);
+    text-decoration: none;
+    border-bottom: 1px solid var(--moss);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .organic-link:hover { color: var(--bark); border-color: var(--bark); }
+
+  /* ── DATA VIZ PAGE ── */
+  .viz-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .viz-item {
+    background: var(--fog);
+    backdrop-filter: blur(8px);
+    padding: 28px;
+    border-left: 2px solid var(--sand);
+  }
+
+  .viz-thumb-wide {
+    width: 100%;
+    height: 180px;
+    background: rgba(180,160,130,0.25);
+    border: 1px dashed var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bark);
+    opacity: 0.6;
+    font-family: 'Jost', sans-serif;
+    margin-bottom: 16px;
+  }
+
+  .viz-jpeg-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .viz-jpeg {
+    flex: 1;
+    height: 80px;
+    background: rgba(180,160,130,0.2);
+    border: 1px dashed var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bark);
+    opacity: 0.55;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .viz-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--bark);
+    opacity: 0.8;
+    margin-bottom: 10px;
+  }
+
+  /* ── CONSULTING PAGE ── */
+  .consulting-wrap {
+    max-width: 560px;
+  }
+
+  .closed-badge {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--bark);
+    padding: 8px 18px;
+    margin-bottom: 32px;
+    opacity: 0.85;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(90,70,50,0.12);
+    font-size: 0.88rem;
+    font-weight: 300;
+  }
+  .contact-item:last-child { border-bottom: none; }
+
+  .contact-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--moss);
+    min-width: 80px;
+  }
+
+  .contact-value a {
+    color: var(--bark);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .contact-value a:hover { border-color: var(--sand); }
+
+  /* ── ABOUT PAGE ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .about-item {
+    background: var(--fog);
+    backdrop-filter: blur(8px);
+    padding: 24px;
+    border-left: 2px solid var(--sand);
+  }
+
+  .about-photo {
+    width: 100%;
+    height: 200px;
+    background: rgba(180,160,130,0.22);
+    border: 1px dashed var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bark);
+    opacity: 0.55;
+    font-family: 'Jost', sans-serif;
+    margin-bottom: 16px;
+  }
+
+  .about-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--bark);
+    opacity: 0.85;
+  }
+
+  /* ── FADE IN ── */
+  .page.active .content-section,
+  .page.active .viz-item,
+  .page.active .about-item,
+  #home.active .home-card {
+    animation: fadeUp 0.55s ease both;
+  }
+
+  .content-section:nth-child(2) { animation-delay: 0.1s; }
+  .content-section:nth-child(3) { animation-delay: 0.2s; }
+  .viz-item:nth-child(2) { animation-delay: 0.1s; }
+  .viz-item:nth-child(3) { animation-delay: 0.15s; }
+  .viz-item:nth-child(4) { animation-delay: 0.2s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { gap: 20px; }
+    .home-card { padding: 36px 28px; }
+    .page-inner { padding: 100px 6vw 60px; }
+    .content-section { padding: 28px 24px; }
+    .viz-grid, .about-grid { grid-template-columns: 1fr; }
+    .project-item { flex-direction: column; }
+    .project-thumb { width: 100%; min-width: unset; }
+  }
+</style>
+</head>
+<body class="page-home">
+
+<!-- Background layers -->
+<div class="bg-layer" id="bg-home"></div>
+<div class="bg-layer" id="bg-inner"></div>
+<div class="bg-overlay"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">S. A. Levis</div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" id="nav-home">Home</a></li>
+    <li><a href="#" onclick="showPage('research')" id="nav-research">Research</a></li>
+    <li><a href="#" onclick="showPage('dataviz')" id="nav-dataviz">Data Visualization</a></li>
+    <li><a href="#" onclick="showPage('consulting')" id="nav-consulting">Consulting</a></li>
+    <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div class="page" id="home">
+  <div class="home-card">
+    <h1 class="home-name">Sarah Amanda<br><em>Levis</em></h1>
+    <p class="home-credential">Ph.D. &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Behavioral Science</p>
+    <div class="home-divider"></div>
+    <p class="home-bio">
+      Quantitative analyst and behavioral scientist with over a decade of experience designing data-driven tools, statistical models, and decision-support systems. Expertise spans experimental design, causal inference, predictive analytics, and data visualization — translating complex patterns in human and market behavior into clear, actionable insight.
+    </p>
+  </div>
+</div>
+
+<!-- ══ RESEARCH ══ -->
+<div class="page page-inner" id="research">
+  <div class="page-header">
+    <h2 class="page-title">Research Projects</h2>
+    <div class="page-title-line"></div>
+  </div>
+
+  <div class="content-section">
+    <p class="section-label">Select Publications</p>
+
+    <div class="project-item">
+      <div class="project-thumb">Image / Snippet</div>
+      <div class="project-info">
+        <h3>Publication Title Placeholder</h3>
+        <p>Brief description of the paper, journal, and key findings. Replace with actual abstract snippet or summary.</p>
+        <a href="YOUR_LINK_HERE" class="organic-link" target="_blank">View Publication →</a>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-thumb">Image / Snippet</div>
+      <div class="project-info">
+        <h3>Publication Title Placeholder</h3>
+        <p>Brief description of the paper, journal, and key findings. Replace with actual abstract snippet or summary.</p>
+        <a href="YOUR_LINK_HERE" class="organic-link" target="_blank">View Publication →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <p class="section-label">Select Projects in Progress</p>
+
+    <div class="project-item">
+      <div class="project-thumb">Causal Inference Chart</div>
+      <div class="project-info">
+        <h3>Causal Inference Project</h3>
+        <p>Brief description of the project, methods used, and current status. Replace with your own summary.</p>
+        <a href="YOUR_GITHUB_LINK_HERE" class="organic-link" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-thumb">Predictive Analytics Chart</div>
+      <div class="project-info">
+        <h3>Predictive Analytics Project</h3>
+        <p>Brief description of the project, methods used, and current status. Replace with your own summary.</p>
+        <a href="YOUR_GITHUB_LINK_HERE" class="organic-link" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DATA VISUALIZATION ══ -->
+<div class="page page-inner" id="dataviz">
+  <div class="page-header">
+    <h2 class="page-title">Data Visualization</h2>
+    <div class="page-title-line"></div>
+  </div>
+
+  <div class="viz-grid">
+
+    <div class="viz-item">
+      <div class="viz-thumb-wide">Tableau Dashboard Image</div>
+      <p class="viz-caption">Dashboard title or brief description of what this visualization shows.</p>
+      <a href="YOUR_TABLEAU_LINK_HERE" class="organic-link" target="_blank">View Dashboard →</a>
+    </div>
+
+    <div class="viz-item">
+      <div class="viz-jpeg-row">
+        <div class="viz-jpeg">Image 1</div>
+        <div class="viz-jpeg">Image 2</div>
+        <div class="viz-jpeg">Image 3</div>
+      </div>
+      <p class="viz-caption">Brief description of this project or visualization set. Replace with your own text.</p>
+    </div>
+
+    <div class="viz-item">
+      <div class="viz-thumb-wide">Tableau Dashboard Image</div>
+      <p class="viz-caption">Dashboard title or brief description of what this visualization shows.</p>
+      <a href="YOUR_TABLEAU_LINK_HERE" class="organic-link" target="_blank">View Dashboard →</a>
+    </div>
+
+    <div class="viz-item">
+      <div class="viz-jpeg-row">
+        <div class="viz-jpeg">Image 1</div>
+        <div class="viz-jpeg">Image 2</div>
+        <div class="viz-jpeg">Image 3</div>
+      </div>
+      <p class="viz-caption">Brief description of this project or visualization set. Replace with your own text.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ CONSULTING ══ -->
+<div class="page page-inner" id="consulting">
+  <div class="page-header">
+    <h2 class="page-title">Consulting</h2>
+    <div class="page-title-line"></div>
+  </div>
+
+  <div class="content-section consulting-wrap">
+    <div class="closed-badge">Currently closed to new clients</div>
+
+    <p class="section-label">Contact</p>
+
+    <div class="contact-item">
+      <span class="contact-label">LinkedIn</span>
+      <span class="contact-value"><a href="YOUR_LINKEDIN_URL" target="_blank">linkedin.com/in/your-profile</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value"><a href="mailto:your@email.com">your@email.com</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Phone</span>
+      <span class="contact-value">+1 (000) 000-0000</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="page page-inner" id="about">
+  <div class="page-header">
+    <h2 class="page-title">About</h2>
+    <div class="page-title-line"></div>
+  </div>
+
+  <div class="about-grid">
+
+    <div class="about-item">
+      <div class="about-photo">Photo 1</div>
+      <p class="about-text">Caption or short text accompanying this photo. Replace with your own words.</p>
+    </div>
+
+    <div class="about-item">
+      <div class="about-photo">Photo 2</div>
+      <p class="about-text">Caption or short text accompanying this photo. Replace with your own words.</p>
+    </div>
+
+    <div class="about-item">
+      <div class="about-photo">Photo 3</div>
+      <p class="about-text">Caption or short text accompanying this photo. Replace with your own words.</p>
+    </div>
+
+    <div class="about-item">
+      <div class="about-photo">Photo 4</div>
+      <p class="about-text">Caption or short text accompanying this photo. Replace with your own words.</p>
+    </div>
+
+    <div class="about-item" style="grid-column: 1 / -1;">
+      <div class="about-photo" style="height:160px;">Photo 5</div>
+      <p class="about-text">Caption or short text accompanying this photo. Replace with your own words.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function showPage(id) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // Remove active nav
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    // Show target
+    document.getElementById(id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    // Switch background
+    if (id === 'home') {
+      document.body.className = 'page-home';
+    } else {
+      document.body.className = 'page-inner';
+    }
+    window.scrollTo(0, 0);
+  }
+
+  // Init
+  showPage('home');
+</script>
+</body>
+</html>
