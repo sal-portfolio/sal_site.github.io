@@ -19,7 +19,8 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; 
+       scroll-snap-type: y mandatory;}
 
   body {
     font-family: 'Raleway', sans-serif;
@@ -76,6 +77,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    scroll-snap-align: start;
   }
 
   .card {
