@@ -1,1 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sarah Amanda Levis ("Amanda")</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #eef2f8;
+    --warm-white: #f2f6fc;
+    --bark-dark: #0d1a2e;
+    --bark-mid: #1e4080;
+    --gold: #2e6bbf;
+    --gold-light: #7aaee8;
+    --text-overlay: rgba(220, 232, 248, 1.0);
+    --nav-bg: rgba(8, 18, 38, 0.88);
+  }
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; 
+       scroll-snap-type: y mandatory;}
+
+  body {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    color: var(--bark-dark);
+    background: transparent;
+    min-height: 100vh;
+  }
+
+  /* ── BACKGROUND ── */
+  .bg-fixed {
+    position: fixed;
+    inset: 0;
+    background: url('paperimages/data.jpg') center center / cover no-repeat;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--nav-bg);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(46, 107, 191, 0.35);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+  nav a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1.1rem 1.6rem;
+    transition: color 0.2s, background 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  nav a:hover, nav a.active {
+    color: #fff;
+    border-bottom-color: var(--gold);
+    background: rgba(46, 107, 191, 0.12);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 7rem 2rem 4rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    scroll-snap-align: start;
+  }
+
+  .card {
+    background: var(--text-overlay);
+    border-radius: 2px;
+    padding: 3rem 3.5rem;
+    max-width: 880px;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+    border-top: 3px solid var(--gold);
+  }
+
+  /* ── TYPOGRAPHY ── */
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 3rem;
+    letter-spacing: 0.04em;
+    color: var(--bark-dark);
+    line-height: 1.1;
+  }
+  h2.subhead {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 0.6rem;
+    margin-bottom: 2rem;
+    white-space: nowrap;
+  }
+  h2.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 2rem;
+    color: var(--bark-dark);
+    margin-bottom: 2rem;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid rgba(30, 64, 128, 0.2);
+    padding-bottom: 0.8rem;
+  }
+  p.body-text {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: #0d1a2e;
+  }
+
+  /* ── HOME ── */
+  #home .card { margin-top: 2rem; max-width: 1150px; }
+  #home .card p.body-text { max-width: 100%; }
+  .home-divider {
+    width: 60px; height: 2px;
+    background: var(--gold);
+    margin: 1.8rem 0;
+  }
+
+  /* ── BUSINESS PROJECTS TABLE ── */
+  .projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.74rem;
+    margin-top: 0.5rem;
+    table-layout: fixed;
+  }
+
+  .projects-table th:first-child {
+    width: 40%;
+}
+.projects-table th:not(:first-child) {
+    width: 20%;
+}
+  .projects-table th {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 0.6rem 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(30, 64, 128, 0.4);
+    border-right: 1px solid rgba(30, 64, 128, 0.25);
+    white-space: nowrap;
+  }
+  .projects-table th:last-child { border-right: none; }
+  .projects-table td {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 0.74rem;
+    color: #0d1a2e;
+    padding: 0.6rem 0.5rem;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(30, 64, 128, 0.1);
+    border-right: 1px solid rgba(30, 64, 128, 0.18);
+    line-height: 1.5;
+  }
+  .projects-table td:last-child { border-right: none; }
+  .projects-table tr:last-child td { border-bottom: none; }
+  .projects-table td:first-child {
+    font-weight: 500;
+    color: var(--bark-mid);
+  }
+
+
+   
+  .project-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--bark-mid);
+    letter-spacing: 0.08em;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+  
+  .project-title:first-of-type { margin-top: 0; }
+  
+  /* ── PUBLICATIONS ── */
+  .pub-row {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(30, 64, 128, 0.15);
+  }
+  .pub-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .carousel-wrap {
+    position: relative;
+    width: 100%;
+    background: #060f1e;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    aspect-ratio: 16/9;
+  }
+  .carousel-wrap img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: #060f1e;
+  }
+  .carousel-wrap img.active { opacity: 1; }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(8, 18, 48, 0.65);
+    border: 1px solid rgba(46, 107, 191, 0.4);
+    color: var(--gold-light);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+    line-height: 1;
+  }
+  .carousel-btn:hover { background: rgba(46, 107, 191, 0.35); }
+  .carousel-btn.prev { left: 10px; }
+  .carousel-btn.next { right: 10px; }
+
+  .carousel-dots {
+    display: flex; gap: 5px;
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  }
+  .carousel-dots span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(122, 174, 232, 0.35);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .carousel-dots span.active { background: var(--gold); }
+
+  .pub-caption {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 0.82rem;
+    line-height: 1.75;
+    color: #0d1a2e;
+  }
+
+  /* ── DATA VIZ ── */
+  .coming-soon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-top: 1rem;
+  }
+
+  /* ── CONSULTING ── */
+  .consult-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  .consult-block h3 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.7rem;
+  }
+  .consult-block ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 0.5rem;
+  }
+  .consult-block ul li {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 0.88rem;
+    color: #0d1a2e;
+    line-height: 2;
+  }
+  .consult-block ul li::before {
+    content: '—';
+    color: var(--gold);
+    margin-right: 0.5rem;
+    font-weight: 400;
+  }
+  .contact-block {
+    border-top: 1px solid rgba(30, 64, 128, 0.2);
+    padding-top: 1.8rem;
+    margin-top: 0.5rem;
+  }
+  .contact-block h3 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .contact-block p {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: #0d1a2e;
+    line-height: 2.1;
+  }
+  .contact-block a {
+    color: var(--bark-mid);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(30, 64, 128, 0.3);
+  }
+  .contact-block a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── ABOUT ── */
+  .about-photos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 600px) { .about-photos { grid-template-columns: 1fr; } }
+  .photo-item img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 2px;
+    display: block;
+    filter: sepia(0.1) contrast(1.02);
+  }
+  .photo-item p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: #1e4080;
+    margin-top: 0.5rem;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #060f1e; }
+  ::-webkit-scrollbar-thumb { background: var(--bark-mid); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="bg-fixed"></div>
+
+<!-- ── NAVIGATION ── -->
+<nav id="main-nav">
+  <a href="#home" class="active">Home</a>
+  <a href="#consulting">Consulting</a>
+  <a href="#projects">Business Projects</a>
+  <a href="#publications">Academic Papers</a>
+  <a href="#dataviz" style="display:none;">Resume</a>
+  <a href="#about" style="display:none;">About Me</a>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HOME
+════════════════════════════════════════ -->
+<section id="home">
+  <div class="card", style="max-width:900px;">
+    <h1>S. Amanda Levis</h1>
+    <h2 class="subhead">Data Analytics &nbsp;·&nbsp; Decision Science &nbsp;·&nbsp; Behavioral Economics</h2>
+    <div class="home-divider"></div>
+    <p class="body-text">
+      After receiving my PhD from Yale in 2018, I helped establish the applied behavioral finance team at Vanguard. There, my work combined data analytics with client psychology to answer questions in the domain of financial literacy and wellness. I conducted large field experiments, designed analytic tools, and led cross-functional teams to inform digital product strategy. I am currently seeking consulting or full-time opportunities (open to relocation).
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONSULTING
+════════════════════════════════════════ -->
+<section id="consulting">
+  <div class="card" style="max-width:900px;">
+    <h2 class="section-title">Consulting</h2>
+    <div class="consult-grid">
+      <div class="consult-block">
+        <h3>Consulting Services</h3>
+        <ul>
+          <li>Causal Inference</li>
+          <li>Human Behavior Research</li>
+          <li>Big Data Analytics</li>
+          <li>Economics</li>
+        </ul>
+      </div>
+      <div class="consult-block">
+        <h3>Subject-Matter Expertise</h3>
+        <ul>
+          <li>Human Judgment/Decision-Making</li>
+          <li>Behavioral Economics</li>
+          <li>Psychometrics</li>
+          <li>Biases and Heuristics</li>
+        </ul>
+      </div>
+      <div class="consult-block">
+        <h3>Secondary Areas</h3>
+        <ul>
+          <li>Stochastic Models (Finance, Operations)</li>
+          <li>Probability Theory</li>
+          <li>Optimization</li>
+          <li>Predictive Analytics</li>
+        </ul>
+      </div>
+    </div>
+    <div class="contact-block">
+      <h3>Contact</h3>
+      <p>
+        (+1) 678-860-4286<br/>
+        <a href="mailto:amanda.levis.work@gmail.com">amanda.levis.work@gmail.com</a><br/>
+        <a href="https://www.linkedin.com/in/amanda-levis/" target="_blank" rel="noopener">linkedin.com/in/amanda-levis</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BUSINESS PROJECTS
+════════════════════════════════════════ -->
+<section id="projects">
+  <div class="card" style="max-width:900px; padding: 2rem 1.5rem;">
+    <h2 class="section-title">Selected Business Projects</h2>
+    <div style="overflow-x:auto;">
+    
+      <h3 class="project-title">1. Product Recommendation App</h3>
+      <table class="projects-table">
+        <thead><tr>
+          <th>Statistical Approach</th>
+          <th>Coding &amp; Platforms</th>
+          <th>Data Sources</th>
+          <th>Stakeholders</th>
+        </tr></thead>
+        <tbody><tr>
+            <td>Multinomial Choice Model, Prospect-Theory Utility Function, BFGS for Best-Fit Parameters</td>
+            <td>R, Python</td>
+            <td>User Clickstream Data</td>
+            <td>Digital Products, UX, IT, Advice Methodology</td>
+        </tr></tbody>
+      </table>
+      
+      <h3 class="project-title">2. Dashboard: Visualizing the Long-Term Impact of Financial Decisions</h3>
+      <table class="projects-table">
+        <thead><tr>
+          <th>Statistical Approach</th>
+          <th>Coding &amp; Platforms</th>
+          <th>Data Sources</th>
+          <th>Stakeholders</th>
+        </tr></thead>
+        <tbody><tr>
+            <td>Simulations of compounded outcomes, Bootstrapped confidence intervals, Stress-testing risk measures</td>
+            <td>Python, Excel</td>
+            <td>Return forecasts, Morningstar data</td>
+            <td>Financial Product Marketing, Communications </td>
+        </tr></tbody>
+      </table>
+      
+      <h3 class="project-title">3. Virtual Experimentation Lab</h3>
+      <table class="projects-table">
+        <thead><tr>
+          <th>Statistical Approach</th>
+          <th>Coding &amp; Platforms</th>
+          <th>Data Sources</th>
+          <th>Stakeholders</th>
+        </tr></thead>
+        <tbody><tr>
+            <td>Experimental design (RCTs), Frequentist and bayesian hypothesis testing, Mediation/SEM</td>
+            <td>R, Stata</td>
+            <td>Survey data, clickstream data</td>
+            <td>Advice Product Marketing, UX Research </td>
+        </tr></tbody>
+      </table>
+          
+      <h3 class="project-title">4. Client-Service Interaction Tool</h3>
+      <table class="projects-table">
+        <thead><tr>
+          <th>Statistical Approach</th>
+          <th>Coding &amp; Platforms</th>
+          <th>Data Sources</th>
+          <th>Stakeholders</th>
+        </tr></thead>
+        <tbody><tr>
+            <td>Quasi-experimental design, Instrumentation, Regression analyses with team fixed effects and clustered SEs</td>
+            <td>Stata</td>
+            <td>Clickstream data, transaction data</td>
+            <td>Advice Product </td>
+        </tr></tbody>
+      </table> 
+      
+      <h3 class="project-title">5. User Research: Feature Enhancements for Digital Products</h3>
+      <table class="projects-table">
+        <thead><tr>
+          <th>Statistical Approach</th>
+          <th>Coding &amp; Platforms</th>
+          <th>Data Sources</th>
+          <th>Stakeholders</th>
+        </tr></thead>
+        <tbody><tr>
+            <td>RCTs, Hypothesis testing, Principal Component Factors </td>
+            <td>R, Qualtrics</td>
+            <td>Survey data</td>
+            <td>UX, Product Marketing </td>
+        </tr></tbody>
+      </table> 
+
+      <h3 class="project-title">6. User Needs: Market Research for New Product & Portfolio Tools</h3>
+      <table class="projects-table">
+        <thead><tr>
+          <th>Statistical Approach</th>
+          <th>Coding &amp; Platforms</th>
+          <th>Data Sources</th>
+          <th>Stakeholders</th>
+        </tr></thead>
+        <tbody><tr>
+            <td>Behavioral Utility Modeling, Conjoint and MaxDiff Analyses</td>
+            <td>MATLAB, Qualtrics</td>
+            <td>Use-Case Simulations, Surveys</td>
+            <td>Product Development, Advice Methodology </td>
+        </tr></tbody>
+      </table> 
+      
+         
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ACADEMIC PAPERS
+════════════════════════════════════════ -->
+<section id="publications">
+  <div class="card" style="max-width:900px;">
+    <h2 class="section-title">Selected Publications &amp;<br>Working Papers</h2>
+
+    <!-- ROW 1: bets -->
+    <div class="pub-row">
+      <div class="carousel-wrap" id="carousel-bets">
+        <img src="paperimages/bets_1.jpg" class="active" alt="Bets slide 1"/>
+        <img src="paperimages/bets_2.jpg" alt="Bets slide 2"/>
+        <img src="paperimages/bets_3.jpg" alt="Bets slide 3"/>
+        <button class="carousel-btn prev" onclick="carouselMove('bets',-1)">&#8249;</button>
+        <button class="carousel-btn next" onclick="carouselMove('bets', 1)">&#8250;</button>
+        <div class="carousel-dots" id="dots-bets">
+          <span class="active" onclick="carouselGoto('bets',0)"></span>
+          <span onclick="carouselGoto('bets',1)"></span>
+          <span onclick="carouselGoto('bets',2)"></span>
+        </div>
+      </div>
+      <p class="pub-caption">
+        Frederick, S., <strong>Levis, A.</strong>, Malliaris, S., &amp; Meyer, A. "Valuing bets and hedges: Implications for the construct of risk preferences." <em>Judgment and Decision Making</em> 13.6: 501–508.
+      </p>
+    </div>
+
+    
+    <!-- ROW 2: aot -->
+    <div class="pub-row">
+      <div class="carousel-wrap" id="carousel-aot">
+        <img src="paperimages/aot_1.jpg" class="active" alt="AOT slide 1"/>
+        <img src="paperimages/aot_2.jpg" alt="AOT slide 2"/>
+        <img src="paperimages/aot_3.jpg" alt="AOT slide 3"/>
+        <img src="paperimages/aot_4.jpg" alt="AOT slide 4"/>
+        <button class="carousel-btn prev" onclick="carouselMove('aot',-1)">&#8249;</button>
+        <button class="carousel-btn next" onclick="carouselMove('aot', 1)">&#8250;</button>
+        <div class="carousel-dots" id="dots-aot">
+          <span class="active" onclick="carouselGoto('aot',0)"></span>
+          <span onclick="carouselGoto('aot',1)"></span>
+          <span onclick="carouselGoto('aot',2)"></span>
+          <span onclick="carouselGoto('aot',3)"></span>
+        </div>
+      </div>
+      <p class="pub-caption">
+        Levis, A. "Openness, Decisiveness, and Partisan Differences in Explore-Exploit Behavior." <em>Working Paper.</em>
+      </p>
+    </div>
+
+    <!-- ROW 3: ee -->
+    <div class="pub-row" style="display:none;">
+      <div class="carousel-wrap" id="carousel-ee">
+        <img src="paperimages/ee_1.jpg" class="active" alt="EE slide 1"/>
+        <img src="paperimages/ee_2.jpg" alt="EE slide 2"/>
+        <img src="paperimages/ee_3.jpg" alt="EE slide 3"/>
+        <button class="carousel-btn prev" onclick="carouselMove('ee',-1)">&#8249;</button>
+        <button class="carousel-btn next" onclick="carouselMove('ee', 1)">&#8250;</button>
+        <div class="carousel-dots" id="dots-ee">
+          <span class="active" onclick="carouselGoto('ee',0)"></span>
+          <span onclick="carouselGoto('ee',1)"></span>
+          <span onclick="carouselGoto('ee',2)"></span>
+        </div>
+      </div>
+      <p class="pub-caption">
+        "Opportunity Cost Neglect and the Endowment Effect," with <em>Frederick, S., Yale University</em>
+      </p>
+    </div>
+
+    <!-- ROW 4: thesis -->
+    <div class="pub-row">
+      <div class="carousel-wrap" id="carousel-thesis">
+        <img src="paperimages/thesis_1.jpg" class="active" alt="Thesis slide 1"/>
+        <img src="paperimages/thesis_2.jpg" alt="Thesis slide 2"/>
+        <img src="paperimages/thesis_3.jpg" alt="Thesis slide 3"/>
+        <img src="paperimages/thesis_4.jpg" alt="Thesis slide 4"/>
+        <img src="paperimages/thesis_5.jpg" alt="Thesis slide 5"/>
+        <img src="paperimages/thesis_6.jpg" alt="Thesis slide 6"/>
+        <img src="paperimages/thesis_7.jpg" alt="Thesis slide 7"/>
+        <img src="paperimages/thesis_8.jpg" alt="Thesis slide 8"/>
+        <button class="carousel-btn prev" onclick="carouselMove('thesis',-1)">&#8249;</button>
+        <button class="carousel-btn next" onclick="carouselMove('thesis', 1)">&#8250;</button>
+        <div class="carousel-dots" id="dots-thesis">
+          <span class="active" onclick="carouselGoto('thesis',0)"></span>
+          <span onclick="carouselGoto('thesis',1)"></span>
+          <span onclick="carouselGoto('thesis',2)"></span>
+          <span onclick="carouselGoto('thesis',3)"></span>
+          <span onclick="carouselGoto('thesis',4)"></span>
+          <span onclick="carouselGoto('thesis',5)"></span>
+          <span onclick="carouselGoto('thesis',6)"></span>
+          <span onclick="carouselGoto('thesis',7)"></span>
+          <span onclick="carouselGoto('thesis',8)"></span>
+        </div>
+      </div>
+      <p class="pub-caption">
+        Levis, A. "Wage Effects of Matching Occupation to College Major." <em>Honors Thesis.</em> (Email for full text.)
+      </p>
+    </div>
+
+
+    <!-- ROW 5: bundling -->
+    <div class="pub-row">
+      <div class="carousel-wrap" id="carousel-bundling">
+        <img src="paperimages/bundling_2.jpg" class="active" alt="Bundling slide 1"/>
+        <img src="paperimages/bundling_3.jpg" alt="Bundling slide 2"/>
+        <img src="paperimages/bundling_4.jpg" alt="Bundling slide 3"/>
+        <img src="paperimages/bundling_5.jpg" alt="Bundling slide 4"/>
+        <img src="paperimages/bundling_6.jpg" alt="Bundling slide 5"/>
+        <img src="paperimages/bundling_1.jpg" alt="Bundling slide 6"/>
+        <button class="carousel-btn prev" onclick="carouselMove('bundling',-1)">&#8249;</button>
+        <button class="carousel-btn next" onclick="carouselMove('bundling', 1)">&#8250;</button>
+        <div class="carousel-dots" id="dots-bundling">
+          <span class="active" onclick="carouselGoto('bundling',0)"></span>
+          <span onclick="carouselGoto('bundling',1)"></span>
+          <span onclick="carouselGoto('bundling',2)"></span>
+          <span onclick="carouselGoto('bundling',3)"></span>
+          <span onclick="carouselGoto('bundling',4)"></span>
+          <span onclick="carouselGoto('bundling',5)"></span>
+        </div>
+      </div>
+      <p class="pub-caption">
+        Levis, <strong>Sarah Amanda Levis</strong>. "Post-Merger Bundling in the Cable Industry: The Case of Time Warner and Turner Broadcasting." <em>Journal of Politics &amp; Society</em> 22.2: 198–227.
+      </p>
+    </div>
+
+  </div>
+  
+</section>
+
+<!-- ══════════════════════════════════════
+     DATA VISUALIZATION
+════════════════════════════════════════ -->
+<section id="dataviz" style="display:none;">
+  <div class="card" style="max-width:900px;">
+    <h2 class="section-title">Resume</h2>
+    <p style="margin-top: 1.5rem;">
+      <a href="resume.pdf" target="_blank">View my resume</a>
+      &nbsp;·&nbsp;
+      <a href="resume.pdf" download>Download my resume</a>
+</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     ABOUT ME
+════════════════════════════════════════ -->
+<section id="about" style="display:none;">
+  <div class="card" style="max-width:900px;">
+    <h2 class="section-title">Outside of Analytics</h2>
+    <p class="body-text">
+      I love folk music, reading sweeping psychological theories that blur the line with philosophy (Julian Jaynes, Carl Jung), and all things outdoors. These days I can be found exploring the trails and rivers of the NJ Pine Barrens.
+    </p>
+    <div class="about-photos">
+      <!-- Reversed order as requested: home-bg, inner-bg, hiking group, colombia -->
+      <div class="photo-item">
+        <img src="paperimages/nh.jpg" alt="White Mountains NH" />
+        <p>Loving the White Mountains in NH.</p>
+      </div>
+      <div class="photo-item">
+        <img src="paperimages/inner-bg.jpg" alt="Great Egg Harbor River" style="object-position: center 20%;"/>
+        <p>The Great Egg Harbor River, right outside my doorstep in South Jersey!</p>
+      </div>
+      <div class="photo-item">
+        <img src="paperimages/hiking group.JPG" alt="Pacific Coast Trail" />
+        <p>Adventures on the Pacific Coast Trail.</p>
+      </div>
+      <div class="photo-item">
+        <img src="paperimages/colombia.jpg" alt="Tayrona National Park" style="object-position: center 60%;"/>
+        <p>Tayrona National Park on the beautiful Colombian coast.</p>
+      </div>
+       <div class="photo-item">
+        <img src="paperimages/tatifleet.jpg" alt="tati"  style="object-position: center 55%;"/>
+        <p>My partner and our dog enjoying the view.</p>
+      </div>
+      <div class="photo-item">
+        <img src="paperimages/us.jpg" alt="me" style="object-position: center center;"/>
+        <p>Pinelands National Reserve - great for running, biking, and snow gremlins.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+<script>
+// ── CAROUSEL LOGIC ──
+const carouselState = {};
+
+function initCarousel(id) {
+  const wrap = document.getElementById('carousel-' + id);
+  if (!wrap) return;
+  const imgs = wrap.querySelectorAll('img');
+  carouselState[id] = { current: 0, total: imgs.length };
+}
+
+function carouselMove(id, dir) {
+  const state = carouselState[id];
+  if (!state) return;
+  let next = (state.current + dir + state.total) % state.total;
+  carouselGoto(id, next);
+}
+
+function carouselGoto(id, idx) {
+  const state = carouselState[id];
+  if (!state) return;
+  const wrap = document.getElementById('carousel-' + id);
+  const imgs = wrap.querySelectorAll('img');
+  const dots = document.querySelectorAll('#dots-' + id + ' span');
+  imgs[state.current].classList.remove('active');
+  dots[state.current]?.classList.remove('active');
+  state.current = idx;
+  imgs[state.current].classList.add('active');
+  dots[state.current]?.classList.add('active');
+}
+
+// ── ACTIVE NAV HIGHLIGHT ──
+function updateNav() {
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('nav a');
+  let current = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 100;
+    if (window.scrollY >= top) current = sec.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  ['bets','thesis','bundling','aot','ee'].forEach(initCarousel);
+  window.addEventListener('scroll', updateNav, { passive: true });
+});
+</script>
+</body>
+</html>
